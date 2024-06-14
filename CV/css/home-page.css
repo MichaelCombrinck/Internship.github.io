@@ -1,0 +1,6 @@
+.introduction {
+    width: 100%;
+    background-image: url('../images/top-container-background.jpg');
+    color: white;
+    background-size: cover;
+}
