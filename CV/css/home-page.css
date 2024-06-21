@@ -45,7 +45,6 @@ body {
 
 .right-section {
     width: 100%;
-    height: 750px;
     display: flex;
     justify-content: end;
 }
@@ -117,7 +116,7 @@ body {
   }
 
   .languages li::before, .skills-container li::before {
-    content: "\f0da"; /* FontAwesome bullet icon */
+    content: "\f0da"; 
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
     margin-right: 10px;
@@ -143,22 +142,22 @@ body {
   }
 
 .circle-hr {
-    border: none; /* Remove the default border */
+    border: none; 
     display: flex;
     margin: 120px 0;
-    justify-content: center; /* Center the circles */
-    align-items: center; /* Align the circles vertically */
-    height: 60px; /* Set the height of the hr element */
+    justify-content: center; 
+    align-items: center; 
+    height: 60px; 
     position: relative;
-    background: none; /* Remove any default background */
+    background: none; 
 }
 
 .circle-hr:before,
 .circle-hr:after {
     content: "";
-    width: 25px; /* Width of the circles */
-    height: 25px; /* Height of the circles */
-    border-radius: 50%; /* Make them round */
+    width: 25px; 
+    height: 25px; 
+    border-radius: 50%; 
 
 }
 
@@ -279,7 +278,7 @@ body {
 
 .circle-hr:before {
     box-shadow: 
-    50px 0 0 0 #8DECB4, /* Increased space between circles */
+    50px 0 0 0 #8DECB4, 
     100px 0 0 0 #8DECB4, 
     150px 0 0 0 #8DECB4,
     200px 0 0 0 #8DECB4,
@@ -290,9 +289,220 @@ body {
 
 .circle-hr:after {
     box-shadow: 
-    -50px 0 0 0 #8DECB4, /* Increased space between circles */
+    -50px 0 0 0 #8DECB4, 
     -100px 0 0 0 #8DECB4, 
     -150px 0 0 0 #8DECB4,
     -200px 0 0 0 #8DECB4,
     -250px 0 0 0 #8DECB4;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Top Section */
+.topnav {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #8DECB4;
+}
+
+.topnav a {
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+/* Introduction */
+.introduction {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.left-section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.right-section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+
+
+.personal-title {
+    display: flex;
+    white-space: nowrap;
+}
+
+/* About Section */
+.about-me-heading {
+    display: flex;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 80px;
+    color: #2D9596;
+}
+
+.icons {
+    display: flex;
+    font-size: 60px;
+    color: #2D9596;
+    justify-content: center;
+}
+
+.about-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.containers {
+    width: 30%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.about-subheading {
+    display: flex;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* Languages Section */
+.languages {
+    padding: 80px;
+}
+
+.languages ul {
+    list-style: none;
+    padding: 0;
+}
+
+.languages li {
+    background-color: #f2f2f2;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Skills Section */
+.skills-container {
+    padding: 80px;
+}
+
+.skills-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skills-container li {
+    background-color: #f2f2f2;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.skill-level {
+    float: right;
+}
+
+/* Qualifications and Experience */
+.qualifications {
+    padding: 80px;
+}
+
+.qualifications-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.qualifications ul {
+    list-style: none;
+    padding: 0;
+}
+
+.qualifications li {
+    background-color: #f2f2f2;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.experience-container {
+    padding: 80px;
+    margin-top: 40px;
+}
+
+.project {
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* Education */
+.education-section {
+    padding: 80px;
+    margin-top: 40px;
+}
+
+.education-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.circle-hr {
+  border: none; 
+  display: flex;
+  margin: 120px 0;
+  justify-content: center; 
+  align-items: center; 
+  height: 60px; 
+  position: relative;
+  background: none; 
+}
+
+.circle-hr:before,
+.circle-hr:after {
+  content: "";
+  width: 25px; 
+  height: 25px; 
+  border-radius: 50%; 
+
+}
+
+.circle-hr:before {
+  box-shadow: 
+  50px 0 0 0 #8DECB4, 
+  
+
+}
+
+.circle-hr:after {
+  box-shadow: 
+  -50px 0 0 0 #8DECB4, 
+}
+  
+
 }
