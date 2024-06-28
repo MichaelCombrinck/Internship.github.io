@@ -11,6 +11,8 @@ body {
     display: flex;
     justify-content: end;
     background-color: #8DECB4;
+    position: fixed;
+    width: 100%;
 }
 
 .topnav a {
@@ -48,6 +50,7 @@ body {
     display: flex;
     justify-content: end;
 }
+
 .personal-title {
     display: flex;
     text-wrap: nowrap;
