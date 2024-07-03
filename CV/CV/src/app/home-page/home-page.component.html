@@ -74,7 +74,13 @@
   </div>
   <div class="skills-container" id="skills">
     <h2>Skills:</h2>
-    <ul id="skills-list"></ul>
+    <ul>
+      @for(skill of skills; track skill) {
+        <li>{{skill.name}} <span class="skill-level">{{skill.level}}</span></li>
+      }
+    </ul>
+    
+    
   </div>
 </div>
 

@@ -15,15 +15,15 @@ import { ContactInfoComponent } from '../contact-info/contact-info.component';
 })
 export class HomePageComponent {
 
-  // const skills = [
-  //   { name: 'Angular', level: 'Advanced' },
-  //   { name: 'React', level: 'Beginner' },
-  //   { name: 'Java', level: 'Advanced' },
-  //   { name: 'C# Asp.Net Core', level: 'Intermediate' },
-  //   { name: 'Python', level: 'Advanced' },
-  //   { name: 'JavaScript', level: 'Advanced' },
-  //   { name: 'TypeScript', level: 'Advanced' },
-  //   { name: 'MVC', level: 'Intermediate' },
-  //   { name: 'C# WPF', level: 'Beginner' }
-  // ];
+  public skills = [
+    { name: 'Angular', level: 'Advanced' },
+    { name: 'React', level: 'Beginner' },
+    { name: 'Java', level: 'Advanced' },
+    { name: 'C# Asp.Net Core', level: 'Intermediate' },
+    { name: 'Python', level: 'Advanced' },
+    { name: 'JavaScript', level: 'Advanced' },
+    { name: 'TypeScript', level: 'Advanced' },
+    { name: 'MVC', level: 'Intermediate' },
+    { name: 'C# WPF', level: 'Beginner' }
+  ];
 }
