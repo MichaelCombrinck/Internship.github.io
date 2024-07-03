@@ -1,8 +1,16 @@
 <div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#about">About Me </a>
-  <a href="#skills">Skills</a>
-  <a href="#qualifications">Qualifications</a>
+  @for(item of topNavLinkIsActive; track $index) {
+    <!-- @if (item.IsActive) {
+      <a class="acitive" href="#{{item.Name.toLowerCase()}}" (click)="onNavClick($index)" >{{item.Name}}</a>
+    }
+    @if (!item.IsActive) {
+      <a href="#{{item.Name.toLowerCase()}}" (click)="onNavClick($index)">{{item.Name}}</a>
+    } -->
+
+    <a [ngClass]="item.IsActive ? 'active' : ''"  href="#{{item.Name.toLowerCase()}}" (click)="onNavClick($index)">{{item.Name}}</a>
+   
+  }
+  
 </div>
 <div id="home" class="introduction">
   <div class="left-section">
@@ -19,7 +27,7 @@
 </div>
 <div class="top-section">
   <hr class="circle-hr" />
-  <div class="aboutMe-section" id="about">
+  <div class="aboutMe-section" id="about me">
     <div class="about-me-heading">
       <h2>About Me:</h2>
     </div>
