@@ -61,9 +61,6 @@
   </div>
   <hr class="circle-hr" />
 
-
- 
-
   <div class="languages">
     <h2>Languages:</h2>
     <ul>
@@ -76,11 +73,11 @@
     <h2>Skills:</h2>
     <ul>
       @for(skill of skills; track skill) {
-        <li>{{skill.name}} <span class="skill-level">{{skill.level}}</span></li>
+      <li>
+        {{ skill.name }} <span class="skill-level">{{ skill.level }}</span>
+      </li>
       }
     </ul>
-    
-    
   </div>
 </div>
 
@@ -171,5 +168,3 @@
     <app-contact-info></app-contact-info>
   </div>
 </div>
-
-

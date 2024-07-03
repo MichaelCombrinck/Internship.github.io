@@ -6,16 +6,13 @@ import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-contact-info',
   standalone: true,
-  imports: [MatCardModule,
-    MatIconModule,
-    MatButtonModule,],
+  imports: [MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './contact-info.component.html',
-  styleUrl: './contact-info.component.scss'
+  styleUrl: './contact-info.component.scss',
 })
 export class ContactInfoComponent {
   public FullName: string = 'Michael Combrinck';
   public Address: string = '7 Morris str Hillsboro';
   public CellNumber: string = '0817 59 6949';
   public Email: string = 'combrim@gmail.com';
-
 }
