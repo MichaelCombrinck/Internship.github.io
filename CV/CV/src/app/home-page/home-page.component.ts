@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { ContactInfoComponent } from '../contact-info/contact-info.component';
-import { Console } from 'console';
+import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 
 export interface NavItems {
@@ -19,6 +19,7 @@ export interface NavItems {
     MatIconModule,
     MatDividerModule,
     ContactInfoComponent,
+    MatToolbarModule,
     CommonModule      
   ],
   templateUrl: './home-page.component.html',

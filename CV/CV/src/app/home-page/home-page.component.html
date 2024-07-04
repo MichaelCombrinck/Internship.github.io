@@ -1,16 +1,16 @@
-<div class="topnav">
+<mat-toolbar class="topnav">
+  <div>
   @for(item of topNavLinkIsActive; track $index) {
-    <!-- @if (item.IsActive) {
-      <a class="acitive" href="#{{item.Name.toLowerCase()}}" (click)="onNavClick($index)" >{{item.Name}}</a>
-    }
-    @if (!item.IsActive) {
-      <a href="#{{item.Name.toLowerCase()}}" (click)="onNavClick($index)">{{item.Name}}</a>
-    } -->
-
     <a [ngClass]="item.IsActive ? 'active' : ''"  href="#{{item.Name.toLowerCase()}}" (click)="onNavClick($index)">{{item.Name}}</a>
    
   }
   
+</div>
+
+</mat-toolbar>
+
+<div class="topnav">
+ 
 </div>
 <div id="home" class="introduction">
   <div class="left-section">

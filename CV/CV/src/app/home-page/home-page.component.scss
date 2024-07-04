@@ -27,6 +27,8 @@
 .topnav a.active {
   background-color: green;
   color: white;
+  border-radius: 10px;
+  
 }
 
 .introduction {
@@ -374,6 +376,8 @@
     align-items: center;
     flex-wrap: wrap;
   }
+
+ 
 
   .containers {
     width: 30%;
