@@ -302,7 +302,7 @@
   body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-  }
+  };
 
   /* Top Section */
   .topnav {
@@ -339,7 +339,7 @@
   .left-section {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 50px 20px 20px 20px;
   }
 
   .right-section {
@@ -350,7 +350,7 @@
 
   .personal-title {
     display: flex;
-    white-space: nowrap;
+    white-space:  normal;
   }
 
   /* About Section */
@@ -371,6 +371,7 @@
 
   .about-list-container {
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -380,6 +381,9 @@
  
 
   .containers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 30%;
     margin-bottom: 20px;
     text-align: center;
@@ -544,7 +548,7 @@
   .left-section {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 50px 20px 20px 20px ;
   }
 
   .right-section {

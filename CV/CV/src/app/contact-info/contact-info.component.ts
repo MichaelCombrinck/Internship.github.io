@@ -13,6 +13,6 @@ import { MatCardModule } from '@angular/material/card';
 export class ContactInfoComponent {
   public FullName: string = 'Michael Combrinck';
   public Address: string = '7 Morris str Hillsboro';
-  public CellNumber: string = '0817 59 6949';
+  public CellNumber: string = '081 759 6949';
   public Email: string = 'combrim@gmail.com';
 }
