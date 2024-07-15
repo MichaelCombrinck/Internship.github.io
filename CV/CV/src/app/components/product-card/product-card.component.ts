@@ -3,32 +3,91 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Product } from '../../core/models/product';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatIconModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule],
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.scss'
+  styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent {
-  public products:Product[] = [{
-    name: "Top-Down-Sneakers",
-    type: 'clothes',
-    category: 'sneakers',
-    price: 40.00,
-    imageUrl: '../../../assets/images/sneaker-one.jpg',
-    wishlist: false
-  }]
+  public products: Product[] = [
+    {
+      name: 'Top-Down-Sneakers',
+      type: 'clothes',
+      category: 'sneakers',
+      price: 40.0,
+      imageUrl: '../../../assets/images/sneaker-one.jpg',
+      wishlist: false,
+    },
+    {
+      name: 'Night Sneakers',
+      type: 'clothes',
+      category: 'sneakers',
+      price: 2000.0,
+      imageUrl: '../../../assets/images/shrocs.jpg',
+      wishlist: false,
+    },
+    {
+      name: 'T-Shirt Crocodile',
+      type: 'clothes',
+      category: 't-shirt',
+      price: 20000.00,
+      imageUrl: '../../../assets/images/crocodile-leather.jpg',
+      wishlist: false,
+    },
+    {
+      name: 'Denim Jeans',
+      type: 'clothes',
+      category: 'jeans',
+      price: 5.0,
+      imageUrl: '../../../assets/images/denim-jeans.jpg',
+      wishlist: false,
+    },
+    {
+      name: 'Grass Hopper',
+      type: 'food',
+      category: 'Chinese',
+      price: 1000.0,
+      imageUrl: '../../../assets/images/grasshopper.jpg',
+      wishlist: false,
+    },
+    {
+      name: 'Biltong',
+      type: 'food',
+      category: 'south-african',
+      price: 2000.0,
+      imageUrl: '../../../assets/images/billtong.jpg',
+      wishlist: false,
+    },
+    {
+      name: 'Spaghetti',
+      type: 'food',
+      category: 'Italian',
+      price: 100.0,
+      imageUrl: '../../../assets/images/spaghetti.jpg',
+      wishlist: false,
+    },
+  ];
 
-  onWishlistToggleClick() {
-    for(let i = 0; i < this.products.length; i++) {
-      if(this.products[i].wishlist ) {
-        this.products[i].wishlist = false
-      }
-      else{   
-        this.products[i].wishlist = true;
+  constructor(private _snackBar: MatSnackBar) {}
+
+  onWishlistToggleClick(index: number) {
+      if (this.products[index].wishlist) {
+        this.products[index].wishlist = false;
+        this._snackBar.open('Product was removed from Wishlist', 'Close', {
+          duration: 100000,
+          panelClass: ['success-snackbar']
+        });
+      } else {
+        this.products[index].wishlist = true;
+        this._snackBar.open('Product added to Wishlist', 'Close', {
+          duration: 100000,
+          panelClass: ['success-snackbar']
+        });
       }
     }
   }
-}
+
