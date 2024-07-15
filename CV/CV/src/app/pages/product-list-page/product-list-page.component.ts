@@ -41,4 +41,8 @@ export class ProductListPageComponent {
   onWishlistLinkClick() {
     this._route.navigate(['wishlist'])
   }
+
+  onCheckoutCardClick() {
+    this._route.navigate(['checkout']);
+  }
 }
