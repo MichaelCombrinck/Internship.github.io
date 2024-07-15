@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { ContactInfoComponent } from '../contact-info/contact-info.component';
+import { ContactInfoComponent } from '../../contact-info/contact-info.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
+import { HomeTransactionSectionComponent } from '../../components/home-transaction-section/home-transaction-section.component';
 
 export interface NavItems {
   Name: string;
@@ -20,6 +21,7 @@ export interface NavItems {
     MatDividerModule,
     ContactInfoComponent,
     MatToolbarModule,
+    HomeTransactionSectionComponent,
     CommonModule      
   ],
   templateUrl: './home-page.component.html',
@@ -60,10 +62,8 @@ export class HomePageComponent {
   ];
 
   onNavClick(index: number): void {
-    // Toggle the clicked item
     this.topNavLinkIsActive[index].IsActive = !this.topNavLinkIsActive[index].IsActive;
 
-    // Ensure only one item can be active at a time
     if (this.topNavLinkIsActive[index].IsActive) {
       this.topNavLinkIsActive.forEach((item, i) => {
         if (i !== index) {
@@ -71,8 +71,5 @@ export class HomePageComponent {
         }
       });
     }
-    
-    console.log('Index ', index);
-    console.log('The value of the top nav items: ', this.topNavLinkIsActive);
   }
 }

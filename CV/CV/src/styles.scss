@@ -1,5 +1,35 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button.learn-more-btn.mdc-button {
+  .mat-mdc-button-persistent-ripple {
+    background-color: #50b498;
+  }
+}
+
+
+
+//color theme 
+
+
+@include mat.core();
+
+
+$my-theme: mat.define-theme((
+ color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+  ),
+));

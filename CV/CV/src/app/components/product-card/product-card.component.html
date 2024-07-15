@@ -1,0 +1,31 @@
+@for (product of products; track $index) {
+<mat-card class="example-card product-font" appearance="outlined" >
+  <img
+    mat-card-image
+    src="{{ product.imageUrl }}"
+    alt="Photo of a {{ product.name }}"
+  />
+  <mat-card-content>
+    <div class="pt-5 pb-2">
+      <span class="font-bold text-xl">{{ product.name }}</span>
+    </div>
+    <p class="text-gray-500">The sneakers are very comfortable.</p>
+
+    <div>
+        <span class="text-lg product-font">R {{product.price}}</span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="action-button-container">
+        <button mat-icon-button><mat-icon>add_shopping_cart</mat-icon></button>
+        @if(!product.wishlist) {
+            <button mat-icon-button (click)="onWishlistToggleClick()"><mat-icon>favorite_border</mat-icon></button>
+    
+        }@if (product.wishlist) {
+            <button mat-icon-button><mat-icon (click)="onWishlistToggleClick()">favorite</mat-icon></button>
+        }
+    </div>
+  
+  </mat-card-actions>
+</mat-card>
+}

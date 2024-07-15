@@ -2,7 +2,7 @@
   <div>
   @for(item of topNavLinkIsActive; track $index) {
     <a [ngClass]="item.IsActive ? 'active' : ''"  href="#{{item.Name.toLowerCase()}}" (click)="onNavClick($index)">{{item.Name}}</a>
-   
+    
   }
   
 </div>
@@ -173,6 +173,13 @@
   </p>
 
   <div>
+    <app-home-transaction-section></app-home-transaction-section>
+  </div>
+
+  <div>
     <app-contact-info></app-contact-info>
   </div>
+
+ 
+  
 </div>

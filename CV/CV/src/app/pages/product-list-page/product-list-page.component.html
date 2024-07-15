@@ -1,0 +1,62 @@
+<div class="navbar">
+  <mat-toolbar class="navigation">
+    <span class="shop-name w-full flex justify-center"
+      >Michael's Selling Shop</span
+    >
+    <div>
+      <button mat-icon-button aria-label="Wishlist" (click)="onWishlistLinkClick()">
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </div>
+
+    <button mat-icon-button aria-label="Change Checkout">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>
+
+<div class="layout">
+
+  <div class="m-40 w-80 h-auto">
+    <div class="py-5">
+      <span class="filtering-headings font-bold text-primary-dark">Foods</span>
+      <mat-divider class="!my-5"></mat-divider>
+      <section class="filtering-checkbox">
+        <mat-checkbox>Italian</mat-checkbox>
+        <mat-checkbox>Chinese</mat-checkbox>
+        <mat-checkbox>South-African</mat-checkbox>
+      </section>
+    </div>
+
+    <div class="py-5">
+      <span class="filtering-headings font-bold text-primary-dark"
+        >Clothes</span
+      >
+      <mat-divider class="!my-5"></mat-divider>
+      <section class="filtering-checkbox">
+        <mat-checkbox>Sneakers</mat-checkbox>
+        <mat-checkbox>T-Shirts</mat-checkbox>
+        <mat-checkbox>Jeans</mat-checkbox>
+        <mat-checkbox>Golf Shirts</mat-checkbox>
+        <mat-checkbox>Jackets</mat-checkbox>
+      </section>
+    </div>
+  </div>
+
+  <!-- Products Section -->
+  <div class="product-section w-full">
+    <div class="flex justify-end p-16">
+      <div class="h-20 w-full flex justify-end  ">
+        <mat-form-field appearance="fill" >
+          <mat-label>Search Products</mat-label>
+          <input matInput placeholder="Search" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      
+    </div>
+    <app-product-card></app-product-card>
+    
+  </div>
+</div>
