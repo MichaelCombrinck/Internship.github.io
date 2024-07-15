@@ -19,7 +19,7 @@
           </mat-card-content>
           <mat-card-actions>
             <div class="action-button-container">
-                <button mat-icon-button><mat-icon>add_shopping_cart</mat-icon></button>
+                <button mat-icon-button (click)="onAddToCardClick(product)"><mat-icon>add_shopping_cart</mat-icon></button>
                 @if(!product.wishlist) {
                     <button mat-icon-button (click)="onWishlistToggleClick($index)"><mat-icon>favorite_border</mat-icon></button>
             

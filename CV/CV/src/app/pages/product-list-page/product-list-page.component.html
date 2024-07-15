@@ -4,7 +4,11 @@
       >Michael's Selling Shop</span
     >
     <div>
-      <button mat-icon-button aria-label="Wishlist" (click)="onWishlistLinkClick()">
+      <button
+        mat-icon-button
+        aria-label="Wishlist"
+        (click)="onWishlistLinkClick()"
+      >
         <mat-icon>favorite</mat-icon>
       </button>
     </div>
@@ -16,7 +20,6 @@
 </div>
 
 <div class="layout">
-
   <div class="m-40 w-80 h-auto">
     <div class="py-5">
       <span class="filtering-headings font-bold text-primary-dark">Foods</span>
@@ -46,17 +49,14 @@
   <!-- Products Section -->
   <div class="product-section w-full">
     <div class="flex justify-end p-16">
-      <div class="h-20 w-full flex justify-end  ">
-        <mat-form-field appearance="fill" >
+      <div class="h-20 w-full flex justify-end">
+        <mat-form-field appearance="fill">
           <mat-label>Search Products</mat-label>
           <input matInput placeholder="Search" />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
-
-      
     </div>
     <app-product-card></app-product-card>
-    
   </div>
 </div>
