@@ -76,17 +76,25 @@ export class ProductCardComponent {
 
   public productList: Product[] = [];
 
-  constructor(private _snackBar: MatSnackBar, private _productService: ProductService) {}
+  public productIsWishlist: Product[] = [];
+
+  constructor(private _snackBar: MatSnackBar, private _productService: ProductService) {
+    console.log('value of products', this.products)
+    this._productService.setAllProducts(this.products);
+  }
 
   onWishlistToggleClick(index: number) {
     if (this.products[index].wishlist) {
       this.products[index].wishlist = false;
+      const productToRemove = this.products[index];
+      this._productService.removeWishlistProduct(productToRemove);
       this._snackBar.open('Product was removed from Wishlist', 'Close', {
         duration: 100000,
         panelClass: ['success-snackbar'],
       });
     } else {
       this.products[index].wishlist = true;
+      this._productService.addProductToWishlist(this.products[index]);
       this._snackBar.open('Product added to Wishlist', 'Close', {
         duration: 100000,
         panelClass: ['success-snackbar'],
@@ -96,7 +104,8 @@ export class ProductCardComponent {
 
   onAddToCardClick(product:Product) {
     this.productList.push(product);
-    this._productService.setProduct(this.productList);
-    console.log('The value of the product list: ', this._productService.getProduct());
+    // this._productService.setProduct(this.productList);
   }
+
+ 
 }

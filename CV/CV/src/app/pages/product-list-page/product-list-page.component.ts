@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
 
 
 @Component({
@@ -32,10 +33,10 @@ import { Router } from '@angular/router';
   styleUrl: './product-list-page.component.scss',
 })
 export class ProductListPageComponent {
-  private name:string = 'Mike';
 
-  constructor(private _route: Router) {
-
+  constructor(private _route: Router, private _productService: ProductService) {
+    this._productService.getAllProducts();
+    console.log('Here is the value of the products service: ',this._productService.getAllProducts())
   }
 
   onWishlistLinkClick() {
@@ -44,5 +45,11 @@ export class ProductListPageComponent {
 
   onCheckoutCardClick() {
     this._route.navigate(['checkout']);
+  }
+
+  onCheckCategory(category: string) {
+    const products = this._productService.getAllProducts();
+    console.log('This is the all products: ', products);
+    return products;
   }
 }
