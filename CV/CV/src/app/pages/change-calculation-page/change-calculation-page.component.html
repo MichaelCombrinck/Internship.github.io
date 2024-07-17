@@ -1,27 +1,90 @@
 <!-- Navigation -->
 
 <div class="navbar">
-    <mat-toolbar class="navigation">
-      <span class="shop-name w-full flex justify-center"
-        >Michael's Selling Shop</span
-      >
-      <div>
-        <button
-          mat-icon-button
-          aria-label="Wishlist"
-          (click)="onHomeLinkClick()"
-        >
-          <mat-icon>favorite</mat-icon>
-        </button>
-      </div>
-  
-      <button mat-icon-button aria-label="Change Checkout">
-        <mat-icon>shopping_cart</mat-icon>
+  <mat-toolbar class="navigation">
+    <span class="shop-name w-full flex justify-center"
+      >Michael's Selling Shop</span
+    >
+    <div>
+      <button mat-icon-button aria-label="Checkout" (click)="onHomeLinkClick()">
+        <mat-icon>home</mat-icon>
       </button>
-    </mat-toolbar>
-  </div>
-  
+    </div>
+  </mat-toolbar>
+</div>
 
 <!-- Change Calculation  -->
 
-<div class="change-calculation"></div>
+<div class="flex justify-center align-center w-full h-80">
+  <div class="checkout-container flex flex-col gap-10">
+    <span class="text-4xl font-bold text-primary-dark">My Wallet</span>
+    <mat-divider class="pt-5"></mat-divider>
+    <div class="change-calculation">
+      @if (dataSource.length === 0) {
+      <div>
+        <h4 class="empty-wallet-message">
+          Wallet Is Empty, No Products Were Added To Wallet
+        </h4>
+      </div>
+      }@else {
+      <div class="change-scroll-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Image Url -->
+        <ng-container matColumnDef="imageUrl">
+          <th mat-header-cell *matHeaderCellDef>Image Url</th>
+          <td mat-cell *matCellDef="let element">
+            <img
+              class="cell-container image-cell"
+              src="{{ element.imageUrl }}"
+            />
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <!-- Type Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>Category</th>
+          <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+        </ng-container>
+
+         <!-- Category Column -->
+         <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Quantity</th>
+          <td mat-cell *matCellDef="let element" class="quantity-cell-container">{{ element.quantity }}</td>
+        </ng-container>
+
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let element" class="price-cell-container">
+            R {{ element.price }}
+          </td>
+        </ng-container>
+        
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      
+      </div>
+      <div class="flex justify-end p-5">
+        @if (totalOfCard){
+        <h4>Total: R {{ totalOfCard }}</h4>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</div>

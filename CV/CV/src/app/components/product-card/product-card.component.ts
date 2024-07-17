@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Product } from '../../core/models/product';
@@ -13,13 +13,15 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnInit {
 
-  public products: Product[] = [
+  public products: Product[] = []
+  public initProducts: Product[] = [
     {
       name: 'Top-Down-Sneakers',
       type: 'clothes',
       category: 'sneakers',
+      quantity: 1,
       price: 40.0,
       imageUrl: '../../../assets/images/sneaker-one.jpg',
       wishlist: false,
@@ -28,6 +30,7 @@ export class ProductCardComponent {
       name: 'Night Sneakers',
       type: 'clothes',
       category: 'sneakers',
+      quantity: 1,
       price: 2000.0,
       imageUrl: '../../../assets/images/shrocs.jpg',
       wishlist: false,
@@ -36,6 +39,7 @@ export class ProductCardComponent {
       name: 'T-Shirt Crocodile',
       type: 'clothes',
       category: 't-shirt',
+      quantity: 1,
       price: 20000.0,
       imageUrl: '../../../assets/images/crocodile-leather.jpg',
       wishlist: false,
@@ -44,6 +48,7 @@ export class ProductCardComponent {
       name: 'Denim Jeans',
       type: 'clothes',
       category: 'jeans',
+      quantity: 1,
       price: 5.0,
       imageUrl: '../../../assets/images/denim-jeans.jpg',
       wishlist: false,
@@ -51,7 +56,8 @@ export class ProductCardComponent {
     {
       name: 'Grass Hopper',
       type: 'food',
-      category: 'Chinese',
+      category: 'chinese',
+      quantity: 1,
       price: 1000.0,
       imageUrl: '../../../assets/images/grasshopper.jpg',
       wishlist: false,
@@ -60,6 +66,7 @@ export class ProductCardComponent {
       name: 'Biltong',
       type: 'food',
       category: 'south-african',
+      quantity: 1,
       price: 2000.0,
       imageUrl: '../../../assets/images/billtong.jpg',
       wishlist: false,
@@ -68,6 +75,7 @@ export class ProductCardComponent {
       name: 'Spaghetti',
       type: 'food',
       category: 'Italian',
+      quantity: 1,
       price: 100.0,
       imageUrl: '../../../assets/images/spaghetti.jpg',
       wishlist: false,
@@ -79,8 +87,17 @@ export class ProductCardComponent {
   public productIsWishlist: Product[] = [];
 
   constructor(private _snackBar: MatSnackBar, private _productService: ProductService) {
-    console.log('value of products', this.products)
-    this._productService.setAllProducts(this.products);
+   
+
+  }
+
+  ngOnInit(): void {
+    this._productService.ProductList.subscribe(value => {
+      this.products = [];     
+      this.products.push(...value);
+    });
+
+    this._productService.setAllProducts(this.initProducts);
   }
 
   onWishlistToggleClick(index: number) {
@@ -103,8 +120,10 @@ export class ProductCardComponent {
   }
 
   onAddToCardClick(product:Product) {
-    this.productList.push(product);
-    // this._productService.setProduct(this.productList);
+    this._productService.addCheckoutProducts(product)
+    this._snackBar.open('Product added to Cart ','Close', {
+      duration: 5000,
+    })
   }
 
  

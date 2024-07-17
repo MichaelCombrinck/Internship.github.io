@@ -21,29 +21,21 @@
 
 <div class="layout">
   <div class="m-40 w-80 h-auto">
-    <div class="py-5">
-      <span class="filtering-headings font-bold text-primary-dark">Foods</span>
-      <mat-divider class="!my-5"></mat-divider>
-      <section class="filtering-checkbox">
-        <mat-checkbox>Italian</mat-checkbox>
-        <mat-checkbox>Chinese</mat-checkbox>
-        <mat-checkbox>South-African</mat-checkbox>
-      </section>
-    </div>
 
-    <div class="py-5">
-      <span class="filtering-headings font-bold text-primary-dark"
-        >Clothes</span
-      >
-      <mat-divider class="!my-5"></mat-divider>
-      <section class="filtering-checkbox">
-        <mat-checkbox>Sneakers</mat-checkbox>
-        <mat-checkbox>T-Shirts</mat-checkbox>
-        <mat-checkbox>Jeans</mat-checkbox>
-        <mat-checkbox>Golf Shirts</mat-checkbox>
-        <mat-checkbox>Jackets</mat-checkbox>
-      </section>
-    </div>
+
+    @for (item of filters; track $index) {
+
+      <div class="py-5">
+        <span class="filtering-headings font-bold text-primary-dark">{{item.filterName}}</span>
+        <mat-divider class="!my-5"></mat-divider>
+        <section class="filtering-checkbox">
+          @for (item2 of item.items; track $index) {
+            <mat-checkbox (change)="onCheckCategory(item2.value)">{{item2.displayValue}}</mat-checkbox>
+          }
+          
+        </section>
+      </div>
+    }
   </div>
 
   <!-- Products Section -->

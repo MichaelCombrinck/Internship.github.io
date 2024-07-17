@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { ContactInfoComponent } from '../../contact-info/contact-info.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { HomeTransactionSectionComponent } from '../../components/home-transaction-section/home-transaction-section.component';
 
@@ -22,13 +22,12 @@ export interface NavItems {
     ContactInfoComponent,
     MatToolbarModule,
     HomeTransactionSectionComponent,
-    CommonModule      
+    CommonModule,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
 })
 export class HomePageComponent {
-
   public topNavLinkIsActive: NavItems[] = [
     {
       Name: 'Home',
@@ -46,7 +45,6 @@ export class HomePageComponent {
       Name: 'Qualifications',
       IsActive: false,
     },
-
   ];
 
   public skills = [
@@ -62,7 +60,8 @@ export class HomePageComponent {
   ];
 
   onNavClick(index: number): void {
-    this.topNavLinkIsActive[index].IsActive = !this.topNavLinkIsActive[index].IsActive;
+    this.topNavLinkIsActive[index].IsActive =
+      !this.topNavLinkIsActive[index].IsActive;
 
     if (this.topNavLinkIsActive[index].IsActive) {
       this.topNavLinkIsActive.forEach((item, i) => {

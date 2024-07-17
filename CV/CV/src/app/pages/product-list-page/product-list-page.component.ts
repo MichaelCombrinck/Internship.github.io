@@ -11,7 +11,7 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-
+import { Filters, Product } from '../../core/models/product';
 
 @Component({
   selector: 'app-product-list-page',
@@ -27,20 +27,65 @@ import { ProductService } from '../../services/product.service';
     MatFormFieldModule,
     MatInputModule,
     ProductCardComponent,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './product-list-page.component.html',
   styleUrl: './product-list-page.component.scss',
 })
 export class ProductListPageComponent {
+  public filteringList: Product[] = [];
+
+  filters: Filters[] = [
+    {
+      filterName: 'Foods',
+      items: [
+        {
+          displayValue: 'Italian',
+          value: 'italian',
+        },
+        {
+          displayValue: 'Chinese',
+          value: 'chinese',
+        },
+        {
+          displayValue: 'South-African',
+          value: 'south-african',
+        },
+      ],
+    },
+    {
+      filterName: 'Clothes',
+      items: [
+        {
+          displayValue: 'Sneakers',
+          value: 'sneakers',
+        },
+        {
+          displayValue: 'T-Shirt',
+          value: 't-shirt',
+        },
+        {
+          displayValue: 'Jeans',
+          value: 'jeans',
+        },
+        {
+          displayValue: 'Golf Shirts',
+          value: 'golfShirts',
+        },
+        {
+          displayValue: "Jackets",
+          value: "jackets"
+        }
+      ],
+    },
+  ];
 
   constructor(private _route: Router, private _productService: ProductService) {
     this._productService.getAllProducts();
-    console.log('Here is the value of the products service: ',this._productService.getAllProducts())
   }
 
   onWishlistLinkClick() {
-    this._route.navigate(['wishlist'])
+    this._route.navigate(['wishlist']);
   }
 
   onCheckoutCardClick() {
@@ -48,8 +93,12 @@ export class ProductListPageComponent {
   }
 
   onCheckCategory(category: string) {
-    const products = this._productService.getAllProducts();
-    console.log('This is the all products: ', products);
-    return products;
+    
+    console.log('hello: ', category);
+    this._productService.filteringProductSection(category);
+    this._productService.getAllProducts();
+
   }
 }
+
+
