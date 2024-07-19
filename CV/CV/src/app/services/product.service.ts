@@ -5,11 +5,12 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class ProductService {
 
-  ProductList = new BehaviorSubject< Product[]>([]);
+  public ProductList = new BehaviorSubject< Product[]>([]);
   public allProducts: Product[] = [];
 
   public products: Product[] = [];
   public productsAddedToCheckout: Product[] = [];
+  public walletList = new BehaviorSubject<Product[]>([]);
   public wishlistProducts: Product[] = [];
 
 
@@ -37,7 +38,9 @@ export class ProductService {
   }
 
   public addProductToWishlist(product: Product) {
-    this.wishlistProducts.push(product);
+    if (!this.wishlistProducts.some(p => p.name === product.name && p.type === product.type)) {
+      this.wishlistProducts.push(product);
+    }
   }
 
   public removeWishlistProduct(removedWishlist: Product) {
@@ -54,17 +57,39 @@ export class ProductService {
   }
 
   public addCheckoutProducts(product: Product) {
-    this.productsAddedToCheckout.push(product);
+    const existingProduct = this.productsAddedToCheckout.find(
+      p => p.name === product.name && p.type === product.type
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      this.productsAddedToCheckout.push({ ...product, quantity: 1 });
+    }
+
+    this.walletList.next(this.productsAddedToCheckout);
   }
 
 
   // Filtering Section
 
-  public filteringProductSection(category: string) {
-    const value = this.allProducts.filter(p => p.category === category);
-    this.ProductList.next(value);
-    console.log(value)
+  public filteringProductSection(categories: string[], searchQuery: string) {
+    let filteredProducts = this.allProducts;
+
+    if (categories.length > 0) {
+      filteredProducts = filteredProducts.filter(product => categories.includes(product.category));
+    }
+
+    if (searchQuery) {
+      filteredProducts = filteredProducts.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    this.ProductList.next(filteredProducts);
   }
+
+
 
 
   // Change Calculation Section

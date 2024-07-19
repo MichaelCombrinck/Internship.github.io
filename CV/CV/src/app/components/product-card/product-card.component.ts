@@ -74,7 +74,7 @@ export class ProductCardComponent implements OnInit {
     {
       name: 'Spaghetti',
       type: 'food',
-      category: 'Italian',
+      category: 'italian',
       quantity: 1,
       price: 100.0,
       imageUrl: '../../../assets/images/spaghetti.jpg',
@@ -97,6 +97,10 @@ export class ProductCardComponent implements OnInit {
       this.products.push(...value);
     });
 
+
+    if (this.products.length > 0 ){
+      return
+    }
     this._productService.setAllProducts(this.initProducts);
   }
 

@@ -23,69 +23,62 @@
     <mat-divider class="pt-5"></mat-divider>
 
     <div class="product-wishlist-container">
-      <div class="wishlist-scroll-container">
-        <!-- @for(header of tableHeaders; track $index) {
-        <div class="headers flex justify-evenly">
-            @if($index !== 0) {
-                <span>{{ header }}</span>
-            }
-
+      @if (dataSource.length === 0) {
+        <div>
+          <h4 class="empty-wishlist-message">
+            Wallet Is Empty, No Products Were Added To Wallet
+          </h4>
         </div>
-        @if($index === 0 ) {
-           
-        <div class="flex justify-start">
-          <span>{{ header }}</span>
+      }@else {
+        <div class="wishlist-scroll-container">
+
+
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Image Url -->
+            <ng-container matColumnDef="imageUrl">
+              <th mat-header-cell *matHeaderCellDef>Image Url</th>
+              <td mat-cell *matCellDef="let element">
+                <img
+                  class="cell-container image-cell"
+                  src="{{ element.imageUrl }}"
+                />
+              </td>
+            </ng-container>
+  
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+  
+            <!-- Type Column -->
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef>Type</th>
+              <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+            </ng-container>
+  
+            <!-- Category Column -->
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef>Category</th>
+              <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+            </ng-container>
+  
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let element" class="price-cell-container">
+                R {{ element.price }}
+              </td>
+            </ng-container>
+  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
         </div>
-
-        } } -->
-
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <!-- Image Url -->
-          <ng-container matColumnDef="imageUrl">
-            <th mat-header-cell *matHeaderCellDef>Image Url</th>
-            <td mat-cell *matCellDef="let element">
-              <img
-                class="cell-container image-cell"
-                src="{{ element.imageUrl }}"
-              />
-            </td>
-          </ng-container>
-
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-          </ng-container>
-
-          <!-- Type Column -->
-          <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef>Type</th>
-            <td mat-cell *matCellDef="let element">{{ element.type }}</td>
-          </ng-container>
-
-          <!-- Category Column -->
-          <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef>Category</th>
-            <td mat-cell *matCellDef="let element">{{ element.category }}</td>
-          </ng-container>
-
-          <!-- Price Column -->
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef>Price</th>
-            <td mat-cell *matCellDef="let element" class="price-cell-container">
-              R {{ element.price }}
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-      </div>
-      <!-- <div class="flex justify-end p-4">
-        <h3>
-          Total: <span>R {{ total }}</span>
-        </h3>
-      </div> -->
+      }
+      
+     
     </div>
   </div>
 </div>

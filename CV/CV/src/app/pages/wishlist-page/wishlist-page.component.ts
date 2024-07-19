@@ -27,8 +27,6 @@ export class WishlistPageComponent {
     private _productService: ProductService
   ) {}
 
-  // public tableHeaders: string[] = ['Product Name', 'Unit Price', 'Quantity']
-
   public displayedColumns: string[] = [
     'imageUrl',
     'name',

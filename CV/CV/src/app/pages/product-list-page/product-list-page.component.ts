@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Filters, Product } from '../../core/models/product';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-product-list-page',
@@ -33,7 +34,9 @@ import { Filters, Product } from '../../core/models/product';
   styleUrl: './product-list-page.component.scss',
 })
 export class ProductListPageComponent {
-  public filteringList: Product[] = [];
+  public filteringList: string[] = [];
+
+  public searchQuery: string = '';
 
   filters: Filters[] = [
     {
@@ -73,9 +76,9 @@ export class ProductListPageComponent {
           value: 'golfShirts',
         },
         {
-          displayValue: "Jackets",
-          value: "jackets"
-        }
+          displayValue: 'Jackets',
+          value: 'jackets',
+        },
       ],
     },
   ];
@@ -83,6 +86,7 @@ export class ProductListPageComponent {
   constructor(private _route: Router, private _productService: ProductService) {
     this._productService.getAllProducts();
   }
+
 
   onWishlistLinkClick() {
     this._route.navigate(['wishlist']);
@@ -92,13 +96,30 @@ export class ProductListPageComponent {
     this._route.navigate(['checkout']);
   }
 
-  onCheckCategory(category: string) {
-    
-    console.log('hello: ', category);
-    this._productService.filteringProductSection(category);
-    this._productService.getAllProducts();
+  onCheckCategory(event: any, category: string) {
+    if (event.checked) {
+      this.filteringList.push(category);
+    } else {
+      const index = this.filteringList.indexOf(category);
+      if (index > -1) {
+        this.filteringList.splice(index, 1);
+      }
+    }
+    this.applyFilters();
+  }
 
+  onSearch(event: Event) {
+    const inputElement = event.target as HTMLInputElement | null;
+    if (inputElement) {
+      this.searchQuery = inputElement.value;
+      this.applyFilters();
+    }
+  }
+
+  applyFilters() {
+    this._productService.filteringProductSection(
+      this.filteringList,
+      this.searchQuery
+    );
   }
 }
-
-

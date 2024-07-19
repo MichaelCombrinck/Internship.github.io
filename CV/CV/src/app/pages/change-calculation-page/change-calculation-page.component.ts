@@ -24,8 +24,6 @@ import { MatTableModule } from '@angular/material/table';
 export class ChangeCalculationPageComponent implements OnInit {
   public totalOfCard: number = 0;
 
- 
-
   public displayedColumns: string[] = [
     'imageUrl',
     'name',
@@ -33,6 +31,7 @@ export class ChangeCalculationPageComponent implements OnInit {
     'category',
     'quantity',
     'price',
+    'totalCost',
   ];
   public dataSource = this._productService.getCheckoutProducts();
 
@@ -43,7 +42,9 @@ export class ChangeCalculationPageComponent implements OnInit {
   constructor(
     private _router: Router,
     private _productService: ProductService
-  ) { this.calculateTotal()}
+  ) {
+    this.calculateTotal();
+  }
 
   onHomeLinkClick() {
     this._router.navigate(['product-list-page']);
@@ -52,7 +53,9 @@ export class ChangeCalculationPageComponent implements OnInit {
   calculateTotal() {
     const products = this._productService.getCheckoutProducts();
 
-    this.totalOfCard = products.reduce((sum, current) => sum + current.price, 0);
-    console.log('Are we winning: ',this.totalOfCard)
+    this.totalOfCard = products.reduce(
+      (sum, current) => sum + current.price * current.quantity,
+      0
+    );
   }
 }

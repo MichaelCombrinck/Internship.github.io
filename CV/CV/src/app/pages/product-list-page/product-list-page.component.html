@@ -13,7 +13,11 @@
       </button>
     </div>
 
-    <button mat-icon-button (click)="onCheckoutCardClick()" aria-label="Change Checkout">
+    <button
+      mat-icon-button
+      (click)="onCheckoutCardClick()"
+      aria-label="Change Checkout"
+    >
       <mat-icon>shopping_cart</mat-icon>
     </button>
   </mat-toolbar>
@@ -21,20 +25,21 @@
 
 <div class="layout">
   <div class="m-40 w-80 h-auto">
-
-
     @for (item of filters; track $index) {
 
-      <div class="py-5">
-        <span class="filtering-headings font-bold text-primary-dark">{{item.filterName}}</span>
-        <mat-divider class="!my-5"></mat-divider>
-        <section class="filtering-checkbox">
-          @for (item2 of item.items; track $index) {
-            <mat-checkbox (change)="onCheckCategory(item2.value)">{{item2.displayValue}}</mat-checkbox>
-          }
-          
-        </section>
-      </div>
+    <div class="py-5">
+      <span class="filtering-headings font-bold text-primary-dark">{{
+        item.filterName
+      }}</span>
+      <mat-divider class="!my-5"></mat-divider>
+      <section class="filtering-checkbox">
+        @for (item2 of item.items; track $index) {
+        <mat-checkbox (change)="onCheckCategory($event, item2.value)">{{
+          item2.displayValue
+        }}</mat-checkbox>
+        }
+      </section>
+    </div>
     }
   </div>
 
@@ -44,7 +49,11 @@
       <div class="h-20 w-full flex justify-end">
         <mat-form-field appearance="fill">
           <mat-label>Search Products</mat-label>
-          <input matInput placeholder="Search" />
+          <input
+            matInput
+            placeholder="Search"
+            (input)="onSearch($event)"
+          />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
