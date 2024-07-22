@@ -33,27 +33,66 @@
 
 .introduction {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0; /* Background color for the introduction section */
+  font-family: 'Arial', sans-serif; /* Font family for the text */
 }
 
 .left-section {
+  width: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding-left: 150px;
-  padding-right: 150px;
 }
 
+
+.left-section h1 {
+  font-size: 2.5em;
+  color: #333; /* Text color for the main text */
+  margin: 0 auto;
+  padding: 0;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+.personal-title {
+  display: flex;
+  color: #007bff; /* Color for the personal title */
+  opacity: 0;
+  animation: slideIn 2s ease-in-out forwards 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
 .right-section {
-  width: 100%;
+  width: 60%;
   display: flex;
   justify-content: end;
   overflow: hidden;
 }
 
-.personal-title {
-  display: flex;
-  text-wrap: nowrap;
-}
 
 /* About Section */
 

@@ -26,6 +26,8 @@ export class ProductService {
     this.ProductList.next(this.allProducts);
   }
 
+ 
+
 
   // Wishlist Section
 
@@ -36,6 +38,8 @@ export class ProductService {
   public setWishlistProduct(products: Product[]) {
     this.wishlistProducts.push(...products);
   }
+
+  
 
   public addProductToWishlist(product: Product) {
     if (!this.wishlistProducts.some(p => p.name === product.name && p.type === product.type)) {
@@ -66,8 +70,17 @@ export class ProductService {
     } else {
       this.productsAddedToCheckout.push({ ...product, quantity: 1 });
     }
-
+    this.setProductCheckoutQuantity(product);
     this.walletList.next(this.productsAddedToCheckout);
+  }
+
+  public setProductCheckoutQuantity(products: Product) {
+    const index = this.productsAddedToCheckout.indexOf(products, 0);
+    if (index === -1) {
+      return;
+    }
+    this.productsAddedToCheckout[index].quantity += 1;
+    console.log('This is the quantity and product which quantity is being increased: ', this.productsAddedToCheckout[index].quantity, 'and the product is: ', this.productsAddedToCheckout[index]);
   }
 
 

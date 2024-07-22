@@ -86,8 +86,8 @@ export class ChangeCalculationPageComponent implements OnInit {
       }
     });
 
-    this.changeMessage = `Change: R${(this.amountPaid - this.totalOfCard).toFixed(2)}. Denominations: ${Object.entries(changeBreakdown)
+    this.changeMessage = `Change: R${(this.amountPaid - this.totalOfCard).toFixed(2)}. Denominations: \n ${Object.entries(changeBreakdown)
       .map(([key, value]) => `${value} x R${key}`)
-      .join(', ')}`;
+      .join(',\n ')}`;
   }
 }

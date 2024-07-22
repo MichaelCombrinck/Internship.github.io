@@ -22,8 +22,8 @@
 }
 
 .checkout-container {
-    padding: 100px;
-    width: 900px;
+    padding: 50px;
+    width: 40%;
 }
 
 .image-cell {
@@ -36,7 +36,7 @@
 
 .checkout-scroll-container {
     height: 520px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .empty-wallet-message {
@@ -47,9 +47,14 @@
 
 .change-scroll-container {
     height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .quantity-cell-container {
    text-align: center;
+}
+
+.payment-container {
+    padding: 50px;
+    width: 30%;
 }
