@@ -21,7 +21,7 @@
     <div class="payment-container flex">
 
     </div >
-    <div class="checkout-container flex">
+    <div class="checkout-container">
       <div class="flex flex-col gap-10 align-center w-full h-80">
         <span class="text-4xl font-bold text-primary-dark">My Wallet</span>
         <mat-divider class="pt-5"></mat-divider>
@@ -40,7 +40,7 @@
                 <th mat-header-cell *matHeaderCellDef>Image Url</th>
                 <td mat-cell *matCellDef="let element">
                   <img
-                    class="cell-container image-cell"
+                    class=" image-cell"
                     src="{{ element.imageUrl }}"
                   />
                 </td>
@@ -66,15 +66,27 @@
                 </td>
               </ng-container>
 
-              <!-- Category Column -->
+              <!-- Quantity Column -->
               <ng-container matColumnDef="quantity">
-                <th mat-header-cell *matHeaderCellDef>Quantity</th>
-                <td
-                  mat-cell
-                  *matCellDef="let element"
-                  class="quantity-cell-container"
-                >
-                  {{ element.quantity }}
+                <th mat-header-cell *matHeaderCellDef class="quantitiy-header">Quantity</th>
+                <td mat-cell *matCellDef="let element" class="quantity-cell-container">
+                  <div class="quantity-input-container">
+                    <button mat-icon-button (click)="decreaseQuantity(element)" class="quantity-button">
+                      <mat-icon>remove_circle_outline</mat-icon>
+                    </button>
+                    <mat-form-field appearance="outline" class="quantity-input-field">
+                      <input
+                        matInput
+                        type="number"
+                        [(ngModel)]="element.quantity"
+                        class="quantity-input"
+                        readonly
+                      />
+                    </mat-form-field>
+                    <button mat-icon-button (click)="increaseQuantity(element)" class="quantity-button">
+                      <mat-icon>add_circle_outline</mat-icon>
+                    </button>
+                  </div>
                 </td>
               </ng-container>
 
@@ -129,7 +141,7 @@
           </div>
           @if (changeMessage) {
             <div class="change-result w-64">
-              <h4 style="white-space: break-spaces;">{{ changeMessage }}</h4>
+              <h5 style="white-space: break-spaces; padding-left: 12px;">{{ changeMessage }}</h5>
             </div>
             }
           </div>

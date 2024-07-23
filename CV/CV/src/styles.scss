@@ -19,7 +19,6 @@ button.learn-more-btn.mdc-button {
   }
 }
 
-
 .cdk-overlay-container {
   .cdk-global-overlay-wrapper {
     mat-snackbar-bar-container.mat-mdc-snack-bar-container.success-snackbar {
@@ -28,24 +27,25 @@ button.learn-more-btn.mdc-button {
           background-color: #50b498 !important;
         }
       }
-     
-   }
+    }
   }
 }
 
+td.mat-mdc-cell img.image-cell {
+  .mdc-data-table__cell {
+    padding: 4px 0;
+  }
+}
 
-
-
-
-//color theme 
-
+//color theme
 
 @include mat.core();
 
-
-$my-theme: mat.define-theme((
- color: (
-    theme-type: light,
-    primary: mat.$violet-palette,
-  ),
-));
+$my-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$violet-palette,
+    ),
+  )
+);

@@ -23,12 +23,9 @@
 
 .checkout-container {
     padding: 50px;
-    width: 40%;
+    width: 44%;
 }
 
-.image-cell {
-    padding: 15px 0;
-}
 
 .price-cell-container {
     width: 130px;
@@ -50,9 +47,29 @@
     overflow-y: auto;
 }
 
-.quantity-cell-container {
-   text-align: center;
-}
+.quantity-input-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .quantity-button {
+    color: #3f51b5;
+  }
+  
+  .quantity-input-field {
+    width: 60px;
+    padding-top: 15%;
+  }
+  
+  .quantity-input {
+    text-align: center;
+  }
+
+  .quantity-header {
+    text-align: center;
+  }
+
 
 .payment-container {
     padding: 50px;

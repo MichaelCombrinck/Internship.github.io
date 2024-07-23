@@ -4,16 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-
-  public ProductList = new BehaviorSubject< Product[]>([]);
+  public ProductList = new BehaviorSubject<Product[]>([]);
   public allProducts: Product[] = [];
 
   public products: Product[] = [];
   public productsAddedToCheckout: Product[] = [];
   public walletList = new BehaviorSubject<Product[]>([]);
   public wishlistProducts: Product[] = [];
-
-
 
   // System Products
 
@@ -26,9 +23,6 @@ export class ProductService {
     this.ProductList.next(this.allProducts);
   }
 
- 
-
-
   // Wishlist Section
 
   public getProductWishlistProducts() {
@@ -39,10 +33,12 @@ export class ProductService {
     this.wishlistProducts.push(...products);
   }
 
-  
-
   public addProductToWishlist(product: Product) {
-    if (!this.wishlistProducts.some(p => p.name === product.name && p.type === product.type)) {
+    if (
+      !this.wishlistProducts.some(
+        (p) => p.name === product.name && p.type === product.type
+      )
+    ) {
       this.wishlistProducts.push(product);
     }
   }
@@ -62,7 +58,7 @@ export class ProductService {
 
   public addCheckoutProducts(product: Product) {
     const existingProduct = this.productsAddedToCheckout.find(
-      p => p.name === product.name && p.type === product.type
+      (p) => p.name === product.name && p.type === product.type
     );
 
     if (existingProduct) {
@@ -80,9 +76,13 @@ export class ProductService {
       return;
     }
     this.productsAddedToCheckout[index].quantity += 1;
-    console.log('This is the quantity and product which quantity is being increased: ', this.productsAddedToCheckout[index].quantity, 'and the product is: ', this.productsAddedToCheckout[index]);
+    console.log(
+      'This is the quantity and product which quantity is being increased: ',
+      this.productsAddedToCheckout[index].quantity,
+      'and the product is: ',
+      this.productsAddedToCheckout[index]
+    );
   }
-
 
   // Filtering Section
 
@@ -90,11 +90,13 @@ export class ProductService {
     let filteredProducts = this.allProducts;
 
     if (categories.length > 0) {
-      filteredProducts = filteredProducts.filter(product => categories.includes(product.category));
+      filteredProducts = filteredProducts.filter((product) =>
+        categories.includes(product.category)
+      );
     }
 
     if (searchQuery) {
-      filteredProducts = filteredProducts.filter(product =>
+      filteredProducts = filteredProducts.filter((product) =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
@@ -102,12 +104,5 @@ export class ProductService {
     this.ProductList.next(filteredProducts);
   }
 
-
-
-
   // Change Calculation Section
-
-
-
-
 }

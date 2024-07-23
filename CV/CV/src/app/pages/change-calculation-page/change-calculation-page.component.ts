@@ -9,6 +9,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { Product } from '../../core/models/product';
 
 @Component({
   selector: 'app-change-calculation-page',
@@ -19,9 +20,9 @@ import { MatInputModule } from '@angular/material/input';
     MatDividerModule,
     MatButtonModule,
     MatTableModule,
-    MatFormFieldModule, 
+    MatFormFieldModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
   ],
   templateUrl: './change-calculation-page.component.html',
   styleUrl: './change-calculation-page.component.scss',
@@ -30,6 +31,8 @@ export class ChangeCalculationPageComponent implements OnInit {
   public totalOfCard: number = 0;
 
   public amountPaid: number = 0;
+
+  public totalCostPerProduct: number = 0;
 
   public changeMessage: string | null = null;
 
@@ -78,7 +81,7 @@ export class ChangeCalculationPageComponent implements OnInit {
     const intervals = [200, 50, 10, 5, 1, 0.5, 0.1];
     let changeBreakdown: { [key: string]: number } = {};
 
-    intervals.forEach(interval => {
+    intervals.forEach((interval) => {
       if (change >= interval) {
         const count = Math.floor(change / interval);
         changeBreakdown[interval] = count;
@@ -86,8 +89,33 @@ export class ChangeCalculationPageComponent implements OnInit {
       }
     });
 
-    this.changeMessage = `Change: R${(this.amountPaid - this.totalOfCard).toFixed(2)}. Denominations: \n ${Object.entries(changeBreakdown)
+    this.changeMessage = `Change: R${(
+      this.amountPaid - this.totalOfCard
+    ).toFixed(2)}. Denominations: \n ${Object.entries(changeBreakdown)
       .map(([key, value]) => `${value} x R${key}`)
       .join(',\n ')}`;
+  }
+
+  increaseQuantity(element: Product) {
+    element.quantity++;
+    const checkoutList = this._productService.walletList;
+    let sumOfCard = 0;
+    checkoutList.value.map((p) => {
+      sumOfCard += p.quantity * p.price;
+    });
+
+    this.totalOfCard = sumOfCard;
+  }
+
+  decreaseQuantity(element: Product) {
+    if (element.quantity > 0) {
+      element.quantity--;
+      const checkoutList = this._productService.walletList;
+      let sumOfCard = 0;
+      checkoutList.value.map((p) => {
+        sumOfCard += p.quantity * p.price;
+      });
+      this.totalOfCard = sumOfCard;
+    }
   }
 }
