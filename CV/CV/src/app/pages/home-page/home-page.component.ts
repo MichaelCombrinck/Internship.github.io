@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
-import { ContactInfoComponent } from '../../contact-info/contact-info.component';
+import { ContactInfoComponent } from '../../components/contact-info/contact-info.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommonModule } from '@angular/common';
 import { HomeTransactionSectionComponent } from '../../components/home-transaction-section/home-transaction-section.component';

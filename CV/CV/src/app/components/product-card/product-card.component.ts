@@ -10,15 +10,21 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule, CommonModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    CommonModule,
+  ],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent implements OnInit {
-
-  public products: Product[] = []
+  public products: Product[] = [];
   public initProducts: Product[] = [
     {
+      id: 1,
       name: 'Top-Down-Sneakers',
       type: 'clothes',
       category: 'sneakers',
@@ -29,6 +35,7 @@ export class ProductCardComponent implements OnInit {
       wishlist: false,
     },
     {
+      id: 2,
       name: 'Night Sneakers',
       type: 'clothes',
       category: 'sneakers',
@@ -39,6 +46,7 @@ export class ProductCardComponent implements OnInit {
       wishlist: false,
     },
     {
+      id: 3,
       name: 'T-Shirt Crocodile',
       type: 'clothes',
       category: 't-shirt',
@@ -49,6 +57,7 @@ export class ProductCardComponent implements OnInit {
       wishlist: false,
     },
     {
+      id: 4,
       name: 'Denim Jeans',
       type: 'clothes',
       category: 'jeans',
@@ -59,6 +68,7 @@ export class ProductCardComponent implements OnInit {
       wishlist: false,
     },
     {
+      id: 5,
       name: 'Grass Hopper',
       type: 'food',
       category: 'chinese',
@@ -69,6 +79,7 @@ export class ProductCardComponent implements OnInit {
       wishlist: false,
     },
     {
+      id: 6,
       name: 'Biltong',
       type: 'food',
       category: 'south-african',
@@ -79,6 +90,7 @@ export class ProductCardComponent implements OnInit {
       wishlist: false,
     },
     {
+      id: 7,
       name: 'Spaghetti',
       type: 'food',
       category: 'italian',
@@ -94,52 +106,46 @@ export class ProductCardComponent implements OnInit {
 
   public productIsWishlist: Product[] = [];
 
-  constructor(private _snackBar: MatSnackBar, private _productService: ProductService) {
-   
-
-  }
+  constructor(
+    private _snackBar: MatSnackBar,
+    private _productService: ProductService
+  ) {}
 
   ngOnInit(): void {
-    this._productService.ProductList.subscribe(value => {
-      this.products = [];     
-      this.products.push(...value);
+    this._productService.ProductList.subscribe((value) => {
+      this.products = value;
     });
 
-
-    if (this.products.length > 0 ){
-      return
+    if (this.products.length === 0) {
+      this._productService.setAllProducts(this.initProducts);
     }
-    this._productService.setAllProducts(this.initProducts);
+
+
   }
+
+ 
 
   onWishlistToggleClick(index: number) {
-    debugger;
-    if (this.products[index].wishlist) {
-      this.products[index].wishlist = false;
-      const productToRemove = this.products[index];
-      this._productService.removeWishlistProduct(productToRemove);
-      this._snackBar.open('Product was removed from Wishlist', 'Close', {
-        duration: 100000,
-        panelClass: ['success-snackbar'],
+    const product = this.products[index];
+    product.wishlist = !product.wishlist;
+    if (product.wishlist) {
+      this._productService.addProductToWishlist(product);
+      this._snackBar.open('Product added to Wishlist', 'Close', {
+        duration: 5000,
       });
     } else {
-      this.products[index].wishlist = true;
-      this._productService.addProductToWishlist(this.products[index]);
-      this._snackBar.open('Product added to Wishlist', 'Close', {
-        duration: 100000,
-        panelClass: ['success-snackbar'],
+      this._productService.removeWishlistProduct(product);
+      this._snackBar.open('Product removed from Wishlist', 'Close', {
+        duration: 5000,
       });
-      const wishlist: Product[] = JSON.parse(localStorage.getItem('wishlist') || '[]');
-      wishlist.push(this.products[index]);
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }
   }
 
-  onAddToCardClick(product:Product) {
-    this._productService.addCheckoutProducts(product)
-    this._snackBar.open('Product added to Cart ','Close', {
+  onAddToCardClick(product: Product) {
+    this._productService.addCheckoutProducts(product);
+    this._snackBar.open('Product added to Cart', 'Close', {
       duration: 5000,
-    })
+    });
   }
 
   // look at this
@@ -154,6 +160,4 @@ export class ProductCardComponent implements OnInit {
     }
     return stars;
   }
-
- 
 }

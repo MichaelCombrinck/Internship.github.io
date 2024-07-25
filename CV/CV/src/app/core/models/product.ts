@@ -1,4 +1,5 @@
 export interface Product {
+  id: number;
   name: string;
   type: 'clothes' | 'food';
   quantity: number;

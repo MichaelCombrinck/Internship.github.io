@@ -18,7 +18,11 @@
       (click)="onCheckoutCardClick()"
       aria-label="Change Checkout"
     >
+    @if (checkoutProductAmount > 0){
+      <mat-icon matBadge="{{checkoutProductAmount}}">shopping_cart</mat-icon>
+    } @else {
       <mat-icon>shopping_cart</mat-icon>
+    }
     </button>
   </mat-toolbar>
 </div>

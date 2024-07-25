@@ -50,7 +50,9 @@ export class ChangeCalculationPageComponent implements OnInit {
   public dataSource = this._productService.getCheckoutProducts();
 
   ngOnInit(): void {
+    
     this.calculateTotal();
+
   }
 
   constructor(
@@ -107,6 +109,7 @@ export class ChangeCalculationPageComponent implements OnInit {
   removeFromCheckout(product: Product) {
     this._productService.removeCheckoutProduct(product);
     this.dataSource = this.dataSource.filter(p => p !== product);
+    this.calculateTotal();
   }
 
   increaseQuantity(element: Product) {

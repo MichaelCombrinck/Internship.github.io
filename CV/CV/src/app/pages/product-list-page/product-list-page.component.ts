@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Filters, Product } from '../../core/models/product';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @Component({
   selector: 'app-product-list-page',
@@ -29,6 +30,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     ProductCardComponent,
     MatMenuModule,
+    MatBadgeModule,
     CommonModule,
   ],
   templateUrl: './product-list-page.component.html',
@@ -38,6 +40,8 @@ export class ProductListPageComponent {
   filteringList: string[] = [];
 
   searchQuery: string = '';
+
+  checkoutProductAmount: number = 0;
 
   filters: Filters[] = [
     {
@@ -86,6 +90,7 @@ export class ProductListPageComponent {
 
   constructor(private _route: Router, private _productService: ProductService) {
     this._productService.getAllProducts();
+  
   }
 
   onWishlistLinkClick() {

@@ -9,15 +9,14 @@ export class ProductService {
   public allProducts: Product[] = [];
 
   public products: Product[] = [];
-  public checkoutList: Product[] = [];
   public walletList = new BehaviorSubject<Product[]>([]);
+  public checkoutList:Product[] = [];
   public wishlistProducts: Product[] = [];
 
-  localStorage!: Storage | undefined;
+  // localStorage!: Storage | undefined;
 
   constructor(@Inject(DOCUMENT) private document: Document) {
-    this.localStorage = document.defaultView?.localStorage;
-    this.loadWishlistFromLocalStorage();
+
   }
 
   // System Products
@@ -28,6 +27,7 @@ export class ProductService {
 
   public setAllProducts(allProducts: Product[]) {
     this.allProducts.push(...allProducts);
+    this.applyWishlistStatus();
     this.ProductList.next(this.allProducts);
   }
 
@@ -45,17 +45,17 @@ export class ProductService {
   }
 
   private saveWishlistToLocalStorage() {
-    console.log('the value of the this.wishlistProducts: ', this.wishlistProducts);
     localStorage.setItem('wishlist', JSON.stringify(this.wishlistProducts));
   }
 
   private loadWishlistFromLocalStorage() {
-    const storedWishlist = this.localStorage?.getItem('wishlist');
+    const storedWishlist = localStorage.getItem('wishlist');
     if (storedWishlist) {
       this.wishlistProducts = JSON.parse(storedWishlist);
-      this.ProductList.next(this.wishlistProducts);
+      
     }
   }
+
 
   public addProductToWishlist(product: Product) {
     if (
@@ -64,51 +64,68 @@ export class ProductService {
       )
     ) {
       this.wishlistProducts.push(product);
+      localStorage?.setItem('wishlist', JSON.stringify(this.wishlistProducts));
     }
+    }
+
+    
+
+  private applyWishlistStatus() {
+    this.allProducts = this.allProducts.map(product => {
+      product.wishlist = this.wishlistProducts.some(wishlistProduct => wishlistProduct.id === product.id);
+      return product;
+    });
+    this.ProductList.next(this.allProducts);
   }
 
   public removeWishlistProduct(removedWishlist: Product) {
-    const index = this.wishlistProducts.indexOf(removedWishlist);
-    if (index !== -1) {
-      this.wishlistProducts.splice(index, 1);
-    }
+    this.wishlistProducts = this.wishlistProducts.filter(x => x.id !== removedWishlist.id);
+    this.allProducts =  this.allProducts.map(p => {
+        const found = this.wishlistProducts.find(wp => wp.id === p.id);
+          p.wishlist = found != null;
+         return p
+    })
+    this.ProductList.next(this.allProducts);  
+    localStorage?.setItem('wishlist', JSON.stringify(this.wishlistProducts));
   }
 
   // Checkout Section
 
   public getCheckoutProducts() {
-    return this.checkoutList;
+    return this.walletList.value;
   }
 
   public addCheckoutProducts(product: Product) {
-    const existingProduct = this.checkoutList.find(
-      (p) => p.name === product.name && p.type === product.type
-    );
+    const checkoutList = this.walletList.value;
+    const existingProduct = checkoutList.find((p) => p.name === product.name && p.type === product.type);
 
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
-      this.checkoutList.push({ ...product, quantity: 1 });
+      checkoutList.push({ ...product, quantity: 1 });
     }
-    this.setProductCheckoutQuantity(product);
-    this.walletList.next(this.checkoutList);
+    this.walletList.next([...checkoutList]);
   }
 
   public removeCheckoutProduct(removedCheckoutProduct: Product) {
-    console.log('this is the value of the Product which is going to be removed from the checkout, ', removedCheckoutProduct)
-    const index = this.checkoutList.indexOf(removedCheckoutProduct);
+    const checkoutList = this.walletList.value;
+    const index = checkoutList.indexOf(removedCheckoutProduct);
     if (index !== -1) {
-      this.checkoutList.splice(index, 1);
-      this.walletList.next(this.checkoutList);
+      checkoutList.splice(index, 1);
+      this.walletList.next([...checkoutList]);
     }
   }
 
+  
+
   public setProductCheckoutQuantity(products: Product) {
-    const index = this.checkoutList.indexOf(products, 0);
+    const checkoutList = this.walletList.value;
+    const index = checkoutList.indexOf(products, 0);
     if (index === -1) {
       return;
     }
-    this.checkoutList[index].quantity += 1;
+    checkoutList[index].quantity += 1;
+    this.walletList.next([...checkoutList]);
   }
 
   // Filtering Section
