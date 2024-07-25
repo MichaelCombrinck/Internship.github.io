@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { Product } from '../../core/models/product';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-change-calculation-page',
@@ -44,6 +45,7 @@ export class ChangeCalculationPageComponent implements OnInit {
     'quantity',
     'price',
     'totalCost',
+    'remove',
   ];
   public dataSource = this._productService.getCheckoutProducts();
 
@@ -53,7 +55,8 @@ export class ChangeCalculationPageComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _productService: ProductService
+    private _productService: ProductService,
+    public snackbar: MatSnackBar
   ) {
     this.calculateTotal();
   }
@@ -89,26 +92,43 @@ export class ChangeCalculationPageComponent implements OnInit {
       }
     });
 
+    const formatDenomination = (value: number) => {
+      if (value < 1) return `${(value * 100).toFixed(0)}c`;
+      return `R${value}`;
+    };
+
     this.changeMessage = `Change: R${(
       this.amountPaid - this.totalOfCard
     ).toFixed(2)}. Denominations: \n ${Object.entries(changeBreakdown)
-      .map(([key, value]) => `${value} x R${key}`)
+      .map(([key, value]) => `${value} x ${formatDenomination(Number(key))}`)
       .join(',\n ')}`;
   }
 
-  increaseQuantity(element: Product) {
-    element.quantity++;
-    const checkoutList = this._productService.walletList;
-    let sumOfCard = 0;
-    checkoutList.value.map((p) => {
-      sumOfCard += p.quantity * p.price;
-    });
+  removeFromCheckout(product: Product) {
+    this._productService.removeCheckoutProduct(product);
+    this.dataSource = this.dataSource.filter(p => p !== product);
+  }
 
-    this.totalOfCard = sumOfCard;
+  increaseQuantity(element: Product) {
+    if (element.quantity < 99 ) {
+      element.quantity++;
+      const checkoutList = this._productService.walletList;
+      let sumOfCard = 0;
+      checkoutList.value.map((p) => {
+        sumOfCard += p.quantity * p.price;
+      });
+  
+      this.totalOfCard = sumOfCard;
+    } else {
+      this.snackbar.open(`Product's Quantity can't be greater than 99`, 'Close', {
+        duration: 3000,
+      })
+    }
+    
   }
 
   decreaseQuantity(element: Product) {
-    if (element.quantity > 0) {
+    if (element.quantity > 1) {
       element.quantity--;
       const checkoutList = this._productService.walletList;
       let sumOfCard = 0;
@@ -116,6 +136,12 @@ export class ChangeCalculationPageComponent implements OnInit {
         sumOfCard += p.quantity * p.price;
       });
       this.totalOfCard = sumOfCard;
+    }else {
+      this.snackbar.open(`Product's Quantity can't be less than 1.`, 'Close', {
+        duration: 3000,
+      });
     }
+
+   
   }
 }

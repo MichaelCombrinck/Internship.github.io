@@ -32,3 +32,17 @@
 .card-image {
   height: 250px;
 }
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Add cursor pointer to indicate the stars are clickable */
+}
+
+.star-icon {
+  color: gold;
+}
+
+.star-icon.outline {
+  color: lightgray;
+}

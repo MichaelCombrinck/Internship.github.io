@@ -12,6 +12,21 @@
               <span class="font-bold text-xl">{{ product.name }}</span>
             </div>
             <p class="text-gray-500">The sneakers are very comfortable.</p>
+
+            <div class="rating-container">
+              @for (star of getStarArray(product.rating); track $index) {
+                <ng-container>
+                  <mat-icon
+                    class="star-icon"
+                    (click)="setRating(product, $index + 1)"
+                    [ngClass]="{'filled': star, 'outline': !star}"
+                    >{{ star ? 'star' : 'star_border' }}</mat-icon
+                  >
+                </ng-container>
+              }
+              
+            </div>
+    
         
             <div>
                 <span class="text-lg product-font">R {{product.price}}</span>

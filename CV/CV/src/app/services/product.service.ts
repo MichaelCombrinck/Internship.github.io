@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Product } from '../core/models/product';
 import { BehaviorSubject } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
@@ -8,9 +9,16 @@ export class ProductService {
   public allProducts: Product[] = [];
 
   public products: Product[] = [];
-  public productsAddedToCheckout: Product[] = [];
+  public checkoutList: Product[] = [];
   public walletList = new BehaviorSubject<Product[]>([]);
   public wishlistProducts: Product[] = [];
+
+  localStorage!: Storage | undefined;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.localStorage = document.defaultView?.localStorage;
+    this.loadWishlistFromLocalStorage();
+  }
 
   // System Products
 
@@ -26,11 +34,27 @@ export class ProductService {
   // Wishlist Section
 
   public getProductWishlistProducts() {
+    this.loadWishlistFromLocalStorage();
     return this.wishlistProducts;
+
   }
 
   public setWishlistProduct(products: Product[]) {
     this.wishlistProducts.push(...products);
+    this.saveWishlistToLocalStorage();
+  }
+
+  private saveWishlistToLocalStorage() {
+    console.log('the value of the this.wishlistProducts: ', this.wishlistProducts);
+    localStorage.setItem('wishlist', JSON.stringify(this.wishlistProducts));
+  }
+
+  private loadWishlistFromLocalStorage() {
+    const storedWishlist = this.localStorage?.getItem('wishlist');
+    if (storedWishlist) {
+      this.wishlistProducts = JSON.parse(storedWishlist);
+      this.ProductList.next(this.wishlistProducts);
+    }
   }
 
   public addProductToWishlist(product: Product) {
@@ -53,35 +77,38 @@ export class ProductService {
   // Checkout Section
 
   public getCheckoutProducts() {
-    return this.productsAddedToCheckout;
+    return this.checkoutList;
   }
 
   public addCheckoutProducts(product: Product) {
-    const existingProduct = this.productsAddedToCheckout.find(
+    const existingProduct = this.checkoutList.find(
       (p) => p.name === product.name && p.type === product.type
     );
 
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
-      this.productsAddedToCheckout.push({ ...product, quantity: 1 });
+      this.checkoutList.push({ ...product, quantity: 1 });
     }
     this.setProductCheckoutQuantity(product);
-    this.walletList.next(this.productsAddedToCheckout);
+    this.walletList.next(this.checkoutList);
+  }
+
+  public removeCheckoutProduct(removedCheckoutProduct: Product) {
+    console.log('this is the value of the Product which is going to be removed from the checkout, ', removedCheckoutProduct)
+    const index = this.checkoutList.indexOf(removedCheckoutProduct);
+    if (index !== -1) {
+      this.checkoutList.splice(index, 1);
+      this.walletList.next(this.checkoutList);
+    }
   }
 
   public setProductCheckoutQuantity(products: Product) {
-    const index = this.productsAddedToCheckout.indexOf(products, 0);
+    const index = this.checkoutList.indexOf(products, 0);
     if (index === -1) {
       return;
     }
-    this.productsAddedToCheckout[index].quantity += 1;
-    console.log(
-      'This is the quantity and product which quantity is being increased: ',
-      this.productsAddedToCheckout[index].quantity,
-      'and the product is: ',
-      this.productsAddedToCheckout[index]
-    );
+    this.checkoutList[index].quantity += 1;
   }
 
   // Filtering Section
@@ -103,6 +130,4 @@ export class ProductService {
 
     this.ProductList.next(filteredProducts);
   }
-
-  // Change Calculation Section
 }

@@ -25,6 +25,7 @@
 
 <div class="layout">
   <div class="m-40 w-80 h-auto">
+    
     @for (item of filters; track $index) {
 
     <div class="py-5">
@@ -45,19 +46,46 @@
 
   <!-- Products Section -->
   <div class="product-section w-full">
-    <div class="flex justify-end p-16">
-      <div class="h-20 w-full flex justify-end">
-        <mat-form-field appearance="fill">
-          <mat-label>Search Products</mat-label>
-          <input
-            matInput
-            placeholder="Search"
-            (input)="onSearch($event)"
-          />
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+    <div class="flex flex-col justify-end p-16">
+
+        <div class="h-20 w-full flex justify-end">
+          <mat-form-field appearance="fill">
+            <mat-label>Search Products</mat-label>
+            <input matInput placeholder="Search" (input)="onSearch($event)" />
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+      
+      <div class="flex justify-end ">
+        <button mat-flat-button [matMenuTriggerFor]="menu">Sort Products</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [matMenuTriggerFor]="name">Sorting by Name</button>
+          <button mat-menu-item [matMenuTriggerFor]="price">Sort by Price</button>
+          <button mat-menu-item [matMenuTriggerFor]="rating">Sort by Rating</button>
+        </mat-menu>
+  
+        <mat-menu #name="matMenu">
+          <button mat-menu-item (click)="onSortClick('name', 'asc')">Name: A - Z</button>
+          <button mat-menu-item (click)="onSortClick('name', 'desc')">Name: Z - A</button>
+        </mat-menu>
+  
+        <mat-menu #rating="matMenu">
+          <button mat-menu-item (click)="onSortClick('rating', 'asc')">Highest Rated</button>
+          <button mat-menu-item (click)="onSortClick('rating', 'desc')">Lowest Rated</button>
+          
+        </mat-menu>
+  
+        <mat-menu #price="matMenu">
+          <button mat-menu-item (click)="onSortClick('price', 'asc')">Price: Low - High</button>
+          <button mat-menu-item (click)="onSortClick('price', 'desc')">Price: High - Low</button>
+  
+        </mat-menu>
+  
+        
       </div>
     </div>
+    
     <app-product-card></app-product-card>
   </div>
 </div>

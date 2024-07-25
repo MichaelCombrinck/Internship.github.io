@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { Filters, Product } from '../../core/models/product';
-import { BehaviorSubject } from 'rxjs';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-product-list-page',
@@ -28,15 +28,16 @@ import { BehaviorSubject } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     ProductCardComponent,
+    MatMenuModule,
     CommonModule,
   ],
   templateUrl: './product-list-page.component.html',
   styleUrl: './product-list-page.component.scss',
 })
 export class ProductListPageComponent {
-  public filteringList: string[] = [];
+  filteringList: string[] = [];
 
-  public searchQuery: string = '';
+  searchQuery: string = '';
 
   filters: Filters[] = [
     {
@@ -87,7 +88,6 @@ export class ProductListPageComponent {
     this._productService.getAllProducts();
   }
 
-
   onWishlistLinkClick() {
     this._route.navigate(['wishlist']);
   }
@@ -121,5 +121,21 @@ export class ProductListPageComponent {
       this.filteringList,
       this.searchQuery
     );
+  }
+
+  onSortClick(criteria: string, order: string) {
+    const products = this._productService.getAllProducts();
+    products.sort((a, b) => {
+      let comparison = 0;
+
+      if (criteria === 'price' || criteria === 'rating') {
+        comparison = a[criteria] - b[criteria];
+      } else if (criteria === 'name') {
+        comparison = a[criteria].localeCompare(b[criteria]);
+      }
+
+      return order === 'asc' ? comparison : -comparison;
+    });
+    this._productService.ProductList.next(products);
   }
 }

@@ -5,11 +5,12 @@ import { Product } from '../../core/models/product';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductService } from '../../services/product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatSnackBarModule, CommonModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
 })
@@ -23,6 +24,7 @@ export class ProductCardComponent implements OnInit {
       category: 'sneakers',
       quantity: 1,
       price: 40.0,
+      rating: 4,
       imageUrl: '../../../assets/images/sneaker-one.jpg',
       wishlist: false,
     },
@@ -32,6 +34,7 @@ export class ProductCardComponent implements OnInit {
       category: 'sneakers',
       quantity: 1,
       price: 2000.0,
+      rating: 5,
       imageUrl: '../../../assets/images/shrocs.jpg',
       wishlist: false,
     },
@@ -41,6 +44,7 @@ export class ProductCardComponent implements OnInit {
       category: 't-shirt',
       quantity: 1,
       price: 20000.0,
+      rating: 3,
       imageUrl: '../../../assets/images/crocodile-leather.jpg',
       wishlist: false,
     },
@@ -50,6 +54,7 @@ export class ProductCardComponent implements OnInit {
       category: 'jeans',
       quantity: 1,
       price: 5.0,
+      rating: 1,
       imageUrl: '../../../assets/images/denim-jeans.jpg',
       wishlist: false,
     },
@@ -59,6 +64,7 @@ export class ProductCardComponent implements OnInit {
       category: 'chinese',
       quantity: 1,
       price: 1000.0,
+      rating: 5,
       imageUrl: '../../../assets/images/grasshopper.jpg',
       wishlist: false,
     },
@@ -68,6 +74,7 @@ export class ProductCardComponent implements OnInit {
       category: 'south-african',
       quantity: 1,
       price: 2000.0,
+      rating: 5,
       imageUrl: '../../../assets/images/billtong.jpg',
       wishlist: false,
     },
@@ -77,6 +84,7 @@ export class ProductCardComponent implements OnInit {
       category: 'italian',
       quantity: 1,
       price: 100.0,
+      rating: 4,
       imageUrl: '../../../assets/images/spaghetti.jpg',
       wishlist: false,
     },
@@ -105,6 +113,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   onWishlistToggleClick(index: number) {
+    debugger;
     if (this.products[index].wishlist) {
       this.products[index].wishlist = false;
       const productToRemove = this.products[index];
@@ -120,6 +129,9 @@ export class ProductCardComponent implements OnInit {
         duration: 100000,
         panelClass: ['success-snackbar'],
       });
+      const wishlist: Product[] = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      wishlist.push(this.products[index]);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }
   }
 
@@ -128,6 +140,19 @@ export class ProductCardComponent implements OnInit {
     this._snackBar.open('Product added to Cart ','Close', {
       duration: 5000,
     })
+  }
+
+  // look at this
+  setRating(product: Product, rating: number) {
+    product.rating = rating;
+  }
+
+  getStarArray(rating: number): boolean[] {
+    const stars = Array(5).fill(false);
+    for (let i = 0; i < rating; i++) {
+      stars[i] = true;
+    }
+    return stars;
   }
 
  
