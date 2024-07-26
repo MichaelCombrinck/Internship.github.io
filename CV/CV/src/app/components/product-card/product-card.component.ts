@@ -26,6 +26,7 @@ export class ProductCardComponent implements OnInit {
     {
       id: 1,
       name: 'Top-Down-Sneakers',
+      description: 'Comfortable Sneakers that will make your friends jealous',
       type: 'clothes',
       category: 'sneakers',
       quantity: 1,
@@ -37,6 +38,7 @@ export class ProductCardComponent implements OnInit {
     {
       id: 2,
       name: 'Night Sneakers',
+      description: 'Feel tired and want to walk around your house ? Night Sneakers is for you.',
       type: 'clothes',
       category: 'sneakers',
       quantity: 1,
@@ -48,6 +50,7 @@ export class ProductCardComponent implements OnInit {
     {
       id: 3,
       name: 'T-Shirt Crocodile',
+      description: 'T-Shirt made of crocodile skin, which will make you feel cold blooded and crocky.',
       type: 'clothes',
       category: 't-shirt',
       quantity: 1,
@@ -59,6 +62,7 @@ export class ProductCardComponent implements OnInit {
     {
       id: 4,
       name: 'Denim Jeans',
+      description: 'Feel cold get Jeans',
       type: 'clothes',
       category: 'jeans',
       quantity: 1,
@@ -70,6 +74,7 @@ export class ProductCardComponent implements OnInit {
     {
       id: 5,
       name: 'Grass Hopper',
+      description: 'Crunchy yet with a bit of a grassy taste',
       type: 'food',
       category: 'chinese',
       quantity: 1,
@@ -81,6 +86,7 @@ export class ProductCardComponent implements OnInit {
     {
       id: 6,
       name: 'Biltong',
+      description: 'The king of snacks',
       type: 'food',
       category: 'south-african',
       quantity: 1,
@@ -92,6 +98,7 @@ export class ProductCardComponent implements OnInit {
     {
       id: 7,
       name: 'Spaghetti',
+      description: 'Top quality pasta with saucy tomato mince, that melts in your mouth',
       type: 'food',
       category: 'italian',
       quantity: 1,

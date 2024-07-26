@@ -11,7 +11,7 @@
             <div class="pt-5 pb-2">
               <span class="font-bold text-xl">{{ product.name }}</span>
             </div>
-            <p class="text-gray-500">The sneakers are very comfortable.</p>
+            <p class="text-gray-500">{{product.description}}</p>
 
             <div class="rating-container">
               @for (star of getStarArray(product.rating); track $index) {

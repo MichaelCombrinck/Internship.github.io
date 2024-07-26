@@ -1,6 +1,7 @@
 export interface Product {
   id: number;
   name: string;
+  description: string;
   type: 'clothes' | 'food';
   quantity: number;
   category: string;
