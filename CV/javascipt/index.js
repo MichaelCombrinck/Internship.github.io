@@ -39,5 +39,3 @@ function createSkillsSection(skills) {
     });
   });
   
-  // Log a welcome message
-  console.log('Welcome to my personal CV page!');
