@@ -33,3 +33,21 @@
   display: flex;
   flex-direction: column;
 }
+
+
+.menu-mobile-button {
+  @media (min-width: 440px) {
+    display: none;
+  }
+
+
+}
+
+.example-container {
+  width: auto;
+  height: 400px;
+  margin: 10px;
+  /* The background property is added to clearly distinguish the borders between drawer and main
+     content */
+  background: #eee;
+}

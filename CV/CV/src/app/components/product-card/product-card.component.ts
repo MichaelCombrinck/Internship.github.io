@@ -38,7 +38,8 @@ export class ProductCardComponent implements OnInit {
     {
       id: 2,
       name: 'Night Sneakers',
-      description: 'Feel tired and want to walk around your house ? Night Sneakers is for you.',
+      description:
+        'Feel tired and want to walk around your house ? Night Sneakers is for you.',
       type: 'clothes',
       category: 'sneakers',
       quantity: 1,
@@ -50,7 +51,8 @@ export class ProductCardComponent implements OnInit {
     {
       id: 3,
       name: 'T-Shirt Crocodile',
-      description: 'T-Shirt made of crocodile skin, which will make you feel cold blooded and crocky.',
+      description:
+        'T-Shirt made of crocodile skin, which will make you feel cold blooded and crocky.',
       type: 'clothes',
       category: 't-shirt',
       quantity: 1,
@@ -98,7 +100,8 @@ export class ProductCardComponent implements OnInit {
     {
       id: 7,
       name: 'Spaghetti',
-      description: 'Top quality pasta with saucy tomato mince, that melts in your mouth',
+      description:
+        'Top quality pasta with saucy tomato mince, that melts in your mouth',
       type: 'food',
       category: 'italian',
       quantity: 1,
@@ -111,12 +114,16 @@ export class ProductCardComponent implements OnInit {
 
   public productList: Product[] = [];
 
+  public desktop: boolean = true;
+
   public productIsWishlist: Product[] = [];
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _productService: ProductService
-  ) {}
+    private _productService: ProductService,
+  ) {
+    
+  }
 
   ngOnInit(): void {
     this._productService.ProductList.subscribe((value) => {
@@ -126,11 +133,7 @@ export class ProductCardComponent implements OnInit {
     if (this.products.length === 0) {
       this._productService.setAllProducts(this.initProducts);
     }
-
-
   }
-
- 
 
   onWishlistToggleClick(index: number) {
     const product = this.products[index];
