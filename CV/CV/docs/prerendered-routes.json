@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/",
+    "/checkout",
+    "/product-list-page",
+    "/wishlist"
+  ]
+}
