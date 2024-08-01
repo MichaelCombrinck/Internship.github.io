@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -9,12 +9,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { Filters, Product } from '../../core/models/product';
+import { Filters } from '../../core/models/product';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list-page',
   standalone: true,
@@ -31,6 +33,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     ProductCardComponent,
     MatMenuModule,
     MatBadgeModule,
+    MatSidenavModule,
+    MatListModule,
     CommonModule,
   ],
   templateUrl: './product-list-page.component.html',
@@ -41,7 +45,17 @@ export class ProductListPageComponent {
 
   searchQuery: string = '';
 
+  isMenuOpen: boolean = false;
+
+  showFiller = false;
+
+  showDrawer:boolean = false;
+
+  links:string[] = ['Sorting Products']
+
   checkoutProductAmount: number = 0;
+
+  browserRefresh: boolean = false;
 
   filters: Filters[] = [
     {
@@ -87,10 +101,10 @@ export class ProductListPageComponent {
       ],
     },
   ];
+  @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
 
-  constructor(private _route: Router, private _productService: ProductService) {
+  constructor(private _route: Router, private _productService: ProductService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this._productService.getAllProducts();
-  
   }
 
   onWishlistLinkClick() {
@@ -143,4 +157,6 @@ export class ProductListPageComponent {
     });
     this._productService.ProductList.next(products);
   }
+
+
 }

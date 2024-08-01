@@ -50,9 +50,7 @@ export class ChangeCalculationPageComponent implements OnInit {
   public dataSource = this._productService.getCheckoutProducts();
 
   ngOnInit(): void {
-    
     this.calculateTotal();
-
   }
 
   constructor(
@@ -108,26 +106,29 @@ export class ChangeCalculationPageComponent implements OnInit {
 
   removeFromCheckout(product: Product) {
     this._productService.removeCheckoutProduct(product);
-    this.dataSource = this.dataSource.filter(p => p !== product);
+    this.dataSource = this.dataSource.filter((p) => p !== product);
     this.calculateTotal();
   }
 
   increaseQuantity(element: Product) {
-    if (element.quantity < 99 ) {
+    if (element.quantity < 99) {
       element.quantity++;
       const checkoutList = this._productService.walletList;
       let sumOfCard = 0;
       checkoutList.value.map((p) => {
         sumOfCard += p.quantity * p.price;
       });
-  
+
       this.totalOfCard = sumOfCard;
     } else {
-      this.snackbar.open(`Product's Quantity can't be greater than 99`, 'Close', {
-        duration: 3000,
-      })
+      this.snackbar.open(
+        `Product's Quantity can't be greater than 99`,
+        'Close',
+        {
+          duration: 3000,
+        }
+      );
     }
-    
   }
 
   decreaseQuantity(element: Product) {
@@ -139,12 +140,10 @@ export class ChangeCalculationPageComponent implements OnInit {
         sumOfCard += p.quantity * p.price;
       });
       this.totalOfCard = sumOfCard;
-    }else {
+    } else {
       this.snackbar.open(`Product's Quantity can't be less than 1.`, 'Close', {
         duration: 3000,
       });
     }
-
-   
   }
 }
