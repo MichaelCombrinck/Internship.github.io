@@ -13,8 +13,6 @@ export class ProductService {
   public checkoutList: Product[] = [];
   public wishlistProducts: Product[] = [];
 
-  // localStorage!: Storage | undefined;
-
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   // System Products
