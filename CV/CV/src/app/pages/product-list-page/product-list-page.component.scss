@@ -40,30 +40,6 @@
   }
 }
 
-.example-container {
-  @media (max-width: 440px) {
-    width: 500px;
-    height: 300px;
-  }
-}
-
-.example-sidenav-content {
-  @media (max-width: 440px) {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.example-sidenav {
-  @media (max-width: 440px) {
-    padding: 20px;
-    height: 400px;
-    background-color: #9cdba6;
-  }
-}
-
 .active-drawer {
   height: 40px;
 }
