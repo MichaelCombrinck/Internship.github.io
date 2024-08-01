@@ -1,4 +1,4 @@
-.example-card {
+.product-card {
   @media (max-width: 800px) {
     max-width: 200px;
     max-height: 460px;
@@ -28,11 +28,6 @@
   }
 }
 
-.example-header-image {
-  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
-  background-size: cover;
-}
-
 .product-font {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
@@ -43,7 +38,7 @@
   justify-content: end;
 }
 
-.example-card:hover {
+.product-card:hover {
   transform: scale(1.05);
 }
 
