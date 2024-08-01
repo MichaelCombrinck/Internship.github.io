@@ -34,20 +34,36 @@
   flex-direction: column;
 }
 
-
 .menu-mobile-button {
   @media (min-width: 440px) {
     display: none;
   }
-
-
 }
 
 .example-container {
-  width: auto;
-  height: 400px;
-  margin: 10px;
-  /* The background property is added to clearly distinguish the borders between drawer and main
-     content */
-  background: #eee;
+  @media (max-width: 440px) {
+    width: 500px;
+    height: 300px;
+  }
+}
+
+.example-sidenav-content {
+  @media (max-width: 440px) {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.example-sidenav {
+  @media (max-width: 440px) {
+    padding: 20px;
+    height: 400px;
+    background-color: #9cdba6;
+  }
+}
+
+.active-drawer {
+  height: 40px;
 }

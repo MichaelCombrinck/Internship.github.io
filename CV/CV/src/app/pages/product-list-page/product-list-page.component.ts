@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -9,15 +9,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { CommonModule } from '@angular/common';
-import { NavigationStart, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
-import { Filters, Product } from '../../core/models/product';
+import { Filters } from '../../core/models/product';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatBadgeModule } from '@angular/material/badge';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDrawer, MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import { Subscription } from 'rxjs';
-
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-list-page',
   standalone: true,
@@ -45,6 +44,12 @@ export class ProductListPageComponent {
   filteringList: string[] = [];
 
   searchQuery: string = '';
+
+  isMenuOpen: boolean = false;
+
+  showFiller = false;
+
+  showDrawer:boolean = false;
 
   links:string[] = ['Sorting Products']
 
@@ -96,8 +101,9 @@ export class ProductListPageComponent {
       ],
     },
   ];
+  @ViewChild('drawer', { static: true }) drawer!: MatDrawer;
 
-  constructor(private _route: Router, private _productService: ProductService) {
+  constructor(private _route: Router, private _productService: ProductService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this._productService.getAllProducts();
   }
 
@@ -152,7 +158,5 @@ export class ProductListPageComponent {
     this._productService.ProductList.next(products);
   }
 
-  onMenuClick() {
 
-  }
 }
